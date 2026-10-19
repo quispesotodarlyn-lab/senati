@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ textos.titulo_pestana }} | SENATI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+  <header>
+    <img src="{{ url_for('static', filename='logo_senati.png') }}" alt="SENATI">
+    <div>
+      <strong>Machine Learning y Deep Learning</strong>
+      <p>{{ textos.subtitulo }}</p>
+    </div>
+  </header>
+
+  <main>
+    <h1>{{ textos.titulo }}</h1>
+    <p>{{ textos.introduccion }}</p>
+
+    <!-- novalidate: la validación la hace el servidor (Python) y muestra los mensajes aquí. -->
+    <form method="POST" novalidate>
+      {% for campo in campos %}
+        <div class="campo{% if errores.get(campo.nombre) %} campo-error{% endif %}">
+          <label for="{{ campo.nombre }}">{{ campo.etiqueta }}{% if campo.unidad %} ({{ campo.unidad }}){% endif %}</label>
+
+          {% if campo.tipo == 'binario' %}
+            <select id="{{ campo.nombre }}" name="{{ campo.nombre }}">
+              {% for valor, texto in campo.opciones %}
+                <option value="{{ valor }}" {% if escritos[campo.nombre] == valor|string %}selected{% endif %}>{{ texto }}</option>
+              {% endfor %}
+            </select>
+          {% else %}
+            <input id="{{ campo.nombre }}" type="text" inputmode="decimal" name="{{ campo.nombre }}"
+                   value="{{ escritos[campo.nombre] }}" placeholder="{{ campo.ejemplo }}" autocomplete="off">
+            <small>Rango permitido: {{ '%g' % modelo.rangos[campo.nombre][0] }} a {{ '%g' % modelo.rangos[campo.nombre][1] }} {{ campo.unidad }}</small>
+          {% endif %}
+
+          {% if errores.get(campo.nombre) %}
+            <span class="mensaje-error">{{ errores[campo.nombre] }}</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit">{{ textos.boton }}</button>
+    </form>
+
+    {% if resultado %}
+      <section class="resultado">
+        <p>{{ textos.etiqueta_resultado }}</p>
+        <strong>{{ resultado.principal }}</strong>
+        <p class="margen">{{ resultado.margen }}</p>
+
+        <details open>
+          <summary>¿Cómo se calculó?</summary>
+          <table>
+            <tr><td>Punto de partida (intercepto)</td><td>{{ resultado.intercepto }}</td></tr>
+            {% for fila in resultado.aportes %}
+              <tr><td>{{ fila.etiqueta }}</td><td>{{ fila.aporte }}</td></tr>
+            {% endfor %}
+            <tr class="total"><td>Total estimado</td><td>{{ resultado.total }}</td></tr>
+          </table>
+        </details>
+      </section>
+    {% endif %}
+
+    <p class="aviso">{{ textos.aviso }}</p>
+  </main>
+  <footer>Material de taller · SENATI · Datos simulados</footer>
+</body>
+</html>

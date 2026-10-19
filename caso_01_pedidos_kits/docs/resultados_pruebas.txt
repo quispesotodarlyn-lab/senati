@@ -1,0 +1,26 @@
+RESULTADOS DE LAS PRUEBAS OBLIGATORIAS
+============================================================
+Prueba 1: semana con 20 consultas, S/ 200 y sin campaña
+  Entradas   : {'consultas_web': '20', 'inversion_publicidad_soles': '200', 'campana_escolar': '0'}
+  Estimación : 9.8044 pedidos por semana
+  Se muestra : 10 pedidos de kits  |  Valor sin redondear: 9.8 pedidos. Error típico del modelo en los datos de prueba (MAE): ± 3.0 pedidos por semana.
+Prueba 2: semana con 55 consultas, S/ 800 y con campaña
+  Entradas   : {'consultas_web': '55', 'inversion_publicidad_soles': '800', 'campana_escolar': '1'}
+  Estimación : 30.9627 pedidos por semana
+  Se muestra : 31 pedidos de kits  |  Valor sin redondear: 31.0 pedidos. Error típico del modelo en los datos de prueba (MAE): ± 3.0 pedidos por semana.
+============================================================
+test_metricas_guardadas (__main__.PruebasModelo.test_metricas_guardadas) ... ok
+test_modelo_json_coincide_con_sklearn (__main__.PruebasModelo.test_modelo_json_coincide_con_sklearn) ... ok
+test_acepta_coma_decimal (__main__.PruebasWeb.test_acepta_coma_decimal) ... ok
+test_acepta_limites_exactos (__main__.PruebasWeb.test_acepta_limites_exactos) ... ok
+test_consultas_deben_ser_enteras (__main__.PruebasWeb.test_consultas_deben_ser_enteras) ... ok
+test_pagina_inicial (__main__.PruebasWeb.test_pagina_inicial) ... ok
+test_pruebas_obligatorias_dan_resultado (__main__.PruebasWeb.test_pruebas_obligatorias_dan_resultado) ... ok
+test_rechaza_fuera_de_rango (__main__.PruebasWeb.test_rechaza_fuera_de_rango) ... ok
+test_rechaza_opcion_binaria_invalida (__main__.PruebasWeb.test_rechaza_opcion_binaria_invalida) ... ok
+test_rechaza_texto_vacio_nan_e_infinito (__main__.PruebasWeb.test_rechaza_texto_vacio_nan_e_infinito) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.050s
+
+OK
